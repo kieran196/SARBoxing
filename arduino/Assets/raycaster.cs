@@ -6,7 +6,7 @@ using System.IO;
 
 public class raycaster : MonoBehaviour
 {
-    string FileName = "data";
+    public string FileName = "data";
     public List<string> logInfo = new List<string>();
 
     public List<Vector3> pos = new List<Vector3>();
@@ -97,9 +97,9 @@ public class raycaster : MonoBehaviour
     // Update is called once per frame
     private float lastHit = -1;
     void Update() {
-        /*timer += Time.deltaTime;
-        print(timer);
-        if (timer > 0.1f) {
+        timer += Time.deltaTime;
+        //print(timer);
+        /*if (timer > 0.1f) {
             timer = 0;*/
        // Debug.Log(sReader.currVal);
         if (Input.GetMouseButtonDown(0) || sReader.currVal > sReader.vibrationHitCap) {
@@ -116,11 +116,11 @@ public class raycaster : MonoBehaviour
                     cube.transform.SetParent(punchingBag.transform, true);
                     cube.transform.GetChild(0).GetComponentInChildren<Text>().text = count.ToString();
                     Debug.Log("Hit " + hit.transform.name + " at " + hit.point);
-                    logInfo.Add(cube.transform.position.x + "," + cube.transform.position.y + "," + cube.transform.position.z);
+                    logInfo.Add(cube.transform.position.x + "," + cube.transform.position.y + "," + cube.transform.position.z + "," + timer);
                     logInfo.Add(cube.transform.localEulerAngles.x + "," + cube.transform.localEulerAngles.y + "," + cube.transform.localEulerAngles.z);
                     count++;
                 }
-            } else if (count < fileSize && (lastHit == -1 || lastHit != sReader.currVal)) {
+            } else if (count < fileSize && (lastHit == -1 || lastHit != sReader.currVal) || Input.anyKeyDown) {
                 GameObject cube = Instantiate(spawnableHit);
                 if (lastObject != null) {
                     lastObject.SetActive(false);
